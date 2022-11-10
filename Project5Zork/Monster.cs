@@ -8,5 +8,16 @@ namespace Project5Zork
 {
     public class Monster : Participant
     {
+        public Monster() : base()
+        {
+            Health = 20;
+            Attack = 4;
+            Name = "Monster";
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
