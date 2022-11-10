@@ -6,7 +6,9 @@ namespace Project5Zork
     {
         public static void Main()
         {
+            Player player = new Player();
 
+            Console.WriteLine(player);
         }
     }
 }

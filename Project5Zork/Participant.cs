@@ -9,35 +9,36 @@ namespace Project5Zork
     public abstract class Participant
     {
         public int Health { get; set; }
-        public int Attack { get; set; }
         public string Name { get; set; }
+        public Weapon Weapon { get; set; }
 
         public Participant()
         {
             Health = 0;
-            Attack = 0;
             Name = "";
+            Weapon = new Weapon(0, null);
         }
 
-        public Participant(int health, int attack, string name)
+        public Participant(int health, string name, Weapon weapon)
         {
             Health = health;
-            Attack = attack;
             Name = name;
+            Weapon = weapon;
         }
 
         public Participant(Participant existingParticipant)
         {
             Name = existingParticipant.Name;
             Health = existingParticipant.Health;
-            Attack = existingParticipant.Attack;
+            Weapon = existingParticipant.Weapon;
         }
 
         public override string ToString()
         {
-            string info = $"Name: {Name}";
-            info += $"Health: {Health}";
-            info += $"Attack: {Attack}";
+            string info = "Participant---------------";
+            info += $"\nName: {Name}";
+            info += $"\nHealth: {Health}";
+            info += $"\nWeapon--------------------{Weapon}";
 
             return info;
         }

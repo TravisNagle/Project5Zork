@@ -11,8 +11,8 @@ namespace Project5Zork
         public Player() : base()
         {
             Health = 100;
-            Attack = 5;
             Name = "Player";
+            Weapon = new Weapon(5, "Unarmed");
         }
 
         public override string ToString()

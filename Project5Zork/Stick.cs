@@ -8,5 +8,9 @@ namespace Project5Zork
 {
     public class Stick : Weapon
     {
+        public Stick(int attack, string name) : base(attack, name)
+        {
+
+        }
     }
 }

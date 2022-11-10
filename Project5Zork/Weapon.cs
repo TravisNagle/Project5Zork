@@ -8,5 +8,21 @@ namespace Project5Zork
 {
     public class Weapon
     {
+        public int Attack { get; set; }
+        public string Name { get; set; }
+
+        public Weapon(int attack, string name)
+        {
+            Attack = attack;
+            Name = name;
+        }
+
+        public override string ToString()
+        {
+            string info = $"\nName: {Name}";
+            info += $"\nAttack: {Attack}";
+
+            return info;
+        }
     }
 }
