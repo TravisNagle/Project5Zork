@@ -9,6 +9,7 @@ namespace Project5Zork
     public class Monster : Participant
     {
         public bool Spawn { get; set; }
+
         public Monster() : base()
         {
             Health = 20;

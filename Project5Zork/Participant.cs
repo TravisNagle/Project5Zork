@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Project5Zork
+﻿namespace Project5Zork
 {
     public abstract class Participant
     {
         public int Health { get; set; }
         public string Name { get; set; }
         public Weapon Weapon { get; set; }
+        public bool Dead { get; set; } = false;
 
         public Participant()
         {
@@ -31,6 +26,13 @@ namespace Project5Zork
             Name = existingParticipant.Name;
             Health = existingParticipant.Health;
             Weapon = existingParticipant.Weapon;
+        }
+
+        public bool IsDead()
+        {
+            Dead = true;
+
+            return Dead;
         }
 
         public override string ToString()
