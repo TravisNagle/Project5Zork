@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project5Zork
 {
-    public abstract class Participant
+    public class Player : Participant
     {
-
     }
 }
