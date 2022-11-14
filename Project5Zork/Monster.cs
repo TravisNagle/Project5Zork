@@ -33,6 +33,11 @@ namespace Project5Zork
             }
         }
 
+        public override int CalcDamage()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return base.ToString();

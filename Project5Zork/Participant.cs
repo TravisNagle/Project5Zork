@@ -35,6 +35,8 @@
             return Dead;
         }
 
+        public abstract int CalcDamage();
+
         public override string ToString()
         {
             string info = "Participant---------------";

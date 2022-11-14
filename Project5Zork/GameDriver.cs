@@ -25,7 +25,7 @@ namespace Project5Zork
             {
                 try
                 {
-                    Console.WriteLine("-------ZORK-------");
+                    Console.WriteLine("------------ZORK------------");
                     Console.WriteLine();
 
                     Console.WriteLine("1. Play Game\n2. Exit Game");

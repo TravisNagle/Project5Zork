@@ -15,6 +15,11 @@ namespace Project5Zork
             Weapon = new Weapon(5, "Unarmed");
         }
 
+        public override int CalcDamage()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return base.ToString();
