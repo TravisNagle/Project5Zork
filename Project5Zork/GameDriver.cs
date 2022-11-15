@@ -51,6 +51,66 @@ namespace Project5Zork
 
         public static void PlayGame()
         {
+            Random rand = new Random();
+            int numOfRooms = rand.Next(5, 11);
+            bool weaponSpawned = false;
+            int weaponLocation = -1;
+
+            List<string> rooms = new List<string>();
+            rooms.Add("|P___|");
+
+            for(int i = 0; i < numOfRooms - 1; i++)
+            {
+                int monsterSpawn = rand.Next(0, 2);
+                int monsterLocation = -1;
+
+                if(monsterSpawn == 1)
+                {
+                    rooms.Add("|_M__|");
+                    monsterLocation = i;
+                }
+                else if(weaponSpawned = false && monsterSpawn != 1)
+                {
+                    int weaponSpawn = rand.Next(0, 2);
+                    if(weaponSpawn == 1)
+                    {
+                        rooms.Add("|__St|");
+                        weaponLocation = i;
+                        weaponSpawned = true;
+                    }
+                    else if(weaponSpawn == 2)
+                    {
+                        rooms.Add("|__Sw|");
+                        weaponLocation = i;
+                        weaponSpawned = true;
+                    }
+                    else if(i == rooms.Count - 1)
+                    {
+                        if(weaponSpawn == 1)
+                        {
+                            rooms.Add("|__St|");
+                            weaponLocation = i;
+                            weaponSpawned = true;
+                        }
+                        else if(weaponSpawn == 0)
+                        {
+                            rooms.Add("|__Sw|");
+                            weaponLocation = i;
+                            weaponSpawned = true;
+                        }
+                    }
+                }
+                else
+                {
+                    rooms.Add("|____|");
+                }
+            }
+
+            foreach (string room in rooms)
+            {
+                Console.Write($"{room} ");
+            }
+
 
         }
     }
