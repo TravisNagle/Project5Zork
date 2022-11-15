@@ -69,7 +69,7 @@ namespace Project5Zork
                     rooms.Add("|_M__|");
                     monsterLocation = i;
                 }
-                else if(weaponSpawned = false && monsterSpawn != 1)
+                else if(weaponSpawned = false && monsterSpawn == 0)
                 {
                     int weaponSpawn = rand.Next(0, 2);
                     if(weaponSpawn == 1)
