@@ -53,56 +53,36 @@ namespace Project5Zork
         {
             Random rand = new Random();
             int numOfRooms = rand.Next(5, 11);
-            bool weaponSpawned = false;
+            int weaponChance = rand.Next(1, 4);
             int weaponLocation = -1;
+            int monsterLocation = -1;
 
-            List<string> rooms = new List<string>();
-            rooms.Add("|P___|");
+            string[] rooms = new string[numOfRooms];
+            rooms[0] = "|P___|";
 
-            for(int i = 0; i < numOfRooms - 1; i++)
+            if(weaponChance % 2 != 0)
+            {
+                weaponLocation = rand.Next(1, numOfRooms - 1);
+                rooms[weaponLocation] = "|__St|";
+            }
+            else
+            {
+                weaponLocation = rand.Next(1, numOfRooms);
+                rooms[weaponLocation] = "|__Sw|";
+            }
+
+            for(int i = 1; i < rooms.Length; i++)
             {
                 int monsterSpawn = rand.Next(0, 2);
-                int monsterLocation = -1;
 
-                if(monsterSpawn == 1)
+                if(monsterSpawn == 1 && i != weaponLocation)
                 {
-                    rooms.Add("|_M__|");
+                    rooms[i] = ("|_M__|");
                     monsterLocation = i;
                 }
-                else if(weaponSpawned = false && monsterSpawn == 0)
+                else if(i != weaponLocation)
                 {
-                    int weaponSpawn = rand.Next(0, 2);
-                    if(weaponSpawn == 1)
-                    {
-                        rooms.Add("|__St|");
-                        weaponLocation = i;
-                        weaponSpawned = true;
-                    }
-                    else if(weaponSpawn == 2)
-                    {
-                        rooms.Add("|__Sw|");
-                        weaponLocation = i;
-                        weaponSpawned = true;
-                    }
-                    else if(i == rooms.Count - 1)
-                    {
-                        if(weaponSpawn == 1)
-                        {
-                            rooms.Add("|__St|");
-                            weaponLocation = i;
-                            weaponSpawned = true;
-                        }
-                        else if(weaponSpawn == 0)
-                        {
-                            rooms.Add("|__Sw|");
-                            weaponLocation = i;
-                            weaponSpawned = true;
-                        }
-                    }
-                }
-                else
-                {
-                    rooms.Add("|____|");
+                    rooms[i] = "|____|";
                 }
             }
 
