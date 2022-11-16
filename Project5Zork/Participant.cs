@@ -35,7 +35,7 @@
             return Dead;
         }
 
-        public abstract int CalcDamage();
+        public abstract int CalcDamage(Player player, Monster monster);
 
         public override string ToString()
         {

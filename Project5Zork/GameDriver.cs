@@ -52,8 +52,25 @@ namespace Project5Zork
         public static void PlayGame()
         {
             Random rand = new Random();
+            List<Participant> characters = new List<Participant>();
+            Player player = new Player();
+            Monster monster = new Monster();
+
+
+            characters.Add(player);
+            characters.Add(monster);
+            characters[0].CalcDamage(player, monster);
+            characters[0].CalcDamage(player, monster);
+
+            characters[0].CalcDamage(player, monster);
+
+            characters[0].CalcDamage(player, monster);
+            characters[0].CalcDamage(player, monster);
+
+
             int numOfRooms = rand.Next(5, 11);
             int weaponChance = rand.Next(1, 4);
+            int playerLocation = 0;
             int weaponLocation = -1;
             int monsterLocation = -1;
 
@@ -90,8 +107,6 @@ namespace Project5Zork
             {
                 Console.Write($"{room} ");
             }
-
-
         }
     }
 }

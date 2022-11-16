@@ -8,6 +8,8 @@ namespace Project5Zork
 {
     public class Player : Participant
     {
+        public bool HasStick { get; set; } = false;
+        public bool HasSword { get; set; } = false;
         public Player() : base()
         {
             Health = 100;
@@ -15,9 +17,17 @@ namespace Project5Zork
             Weapon = new Weapon(5, "Unarmed");
         }
 
-        public override int CalcDamage()
+        public override int CalcDamage(Player player, Monster monster)
         {
-            throw new NotImplementedException();
+            Health = Health - 4;
+            Console.WriteLine($"The Player has taken damage!\nHealth: {Health}");
+
+            if (Health <= 0)
+            {
+                Console.WriteLine($"The Player has died.\nGame Over");
+                Dead = true;
+            }
+            return Health;
         }
 
         public override string ToString()

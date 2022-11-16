@@ -33,9 +33,28 @@ namespace Project5Zork
             }
         }
 
-        public override int CalcDamage()
+        public override int CalcDamage(Player player, Monster monster)
         {
-            throw new NotImplementedException();
+            if(player.HasStick)
+            {
+                Health = Health - 6;
+            }
+            else if(player.HasSword)
+            {
+                Health = Health - 8;
+            }
+            else
+            {
+                Health = Health - 5;
+            }
+            Console.WriteLine($"The Monster has taken damage!\nHealth: {Health}");
+
+            if (Health <= 0)
+            {
+                Console.WriteLine($"The Monster has died.");
+                Dead = true;
+            }
+            return Health;
         }
 
         public override string ToString()
