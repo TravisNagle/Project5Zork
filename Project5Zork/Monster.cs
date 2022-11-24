@@ -14,6 +14,7 @@ namespace Project5Zork
         {
             Health = 20;
             Name = "Monster";
+            Weapon = new Weapon(4, "Unarmed");
         }
 
         public bool MonsterSpawn()

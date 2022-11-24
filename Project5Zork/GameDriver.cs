@@ -53,20 +53,7 @@ namespace Project5Zork
         {
             Random rand = new Random();
             List<Participant> characters = new List<Participant>();
-            Player player = new Player();
-            Monster monster = new Monster();
-
-
-            characters.Add(player);
-            characters.Add(monster);
-            characters[0].CalcDamage(player, monster);
-            characters[0].CalcDamage(player, monster);
-
-            characters[0].CalcDamage(player, monster);
-
-            characters[0].CalcDamage(player, monster);
-            characters[0].CalcDamage(player, monster);
-
+            characters.Add(new Player());
 
             int numOfRooms = rand.Next(5, 11);
             int weaponChance = rand.Next(1, 4);
@@ -94,6 +81,7 @@ namespace Project5Zork
 
                 if(monsterSpawn == 1 && i != weaponLocation)
                 {
+                    characters.Add(new Monster());
                     rooms[i] = ("|_M__|");
                     monsterLocation = i;
                 }
@@ -106,6 +94,43 @@ namespace Project5Zork
             foreach (string room in rooms)
             {
                 Console.Write($"{room} ");
+            }
+
+            string playerChoice = "";
+            bool invalidMovement = false;
+            bool gameOver = false;
+            while((playerChoice != "left" && playerChoice != "right") || invalidMovement || !gameOver)
+            {
+                Console.Write("\nGo (left/right) ");
+                playerChoice = Console.ReadLine();
+
+                if(playerChoice != "left" && playerChoice != "right")
+                {
+                    Console.WriteLine("That was not a valid movement, please enter \"left\" or \"right\"");
+                }
+                else if(playerChoice == "left" && playerLocation == 0)
+                {
+                    Console.WriteLine("There is nowhere to move left!");
+                    invalidMovement = true;
+                }
+                else if(playerChoice == "right" && playerLocation == numOfRooms - 1)
+                {
+                    Console.WriteLine("You have escaped!");
+                    break;
+                }
+                else
+                {
+                    playerLocation++;
+                    rooms[playerLocation - 1] = "|____|";
+                    rooms[playerLocation] = "|P___|";
+                    foreach(string room in rooms)
+                        Console.Write($"{room} ");
+
+                    if(playerLocation == monsterLocation)
+                    {
+                        Console.WriteLine("\n------------BATTLE------------");
+                    }
+                }
             }
         }
     }
