@@ -10,7 +10,8 @@ namespace Project5Zork
     {
         public Sword(int attack, string name) : base(attack, name)
         {
-
+            Attack = attack;
+            Name = name;
         }
     }
 }

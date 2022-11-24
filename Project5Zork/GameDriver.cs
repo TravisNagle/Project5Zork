@@ -52,11 +52,11 @@ namespace Project5Zork
         public static void PlayGame()
         {
             Random rand = new Random();
-            List<Participant> characters = new List<Participant>();
-            List<Weapon> weapons = new List<Weapon>();
-            characters.Add(new Player());
-
             int numOfRooms = rand.Next(5, 11);
+            List<Weapon> weapons = new List<Weapon>();
+            Player player = new Player();
+            Monster[] monsters = new Monster[numOfRooms];
+
             int weaponChance = rand.Next(1, 4);
             int playerLocation = 0;
             int weaponLocation = -1;
@@ -83,7 +83,7 @@ namespace Project5Zork
 
                 if(monsterSpawn == 1 && i != weaponLocation)
                 {
-                    characters.Add(new Monster());
+                    monsters[i] = new Monster();
                     rooms[i] = ("|_M__|");
                     monsterLocations.Add(i);
                 }
@@ -100,8 +100,7 @@ namespace Project5Zork
 
             string playerChoice = "";
             bool invalidMovement = false;
-            bool gameOver = false;
-            while((playerChoice != "left" && playerChoice != "right") || invalidMovement || !gameOver)
+            while((playerChoice != "left" && playerChoice != "right") || invalidMovement || !player.Dead)
             {
                 Console.Write("\nGo (left/right) ");
                 playerChoice = Console.ReadLine();
@@ -120,7 +119,7 @@ namespace Project5Zork
                     Console.WriteLine("You have escaped!");
                     break;
                 }
-                else
+                else if(playerChoice == "right")
                 {
                     playerLocation++;
                     rooms[playerLocation - 1] = "|____|";
@@ -130,19 +129,41 @@ namespace Project5Zork
 
                     if(monsterLocations.Contains(playerLocation))
                     {
-                        Console.WriteLine("\n------------BATTLE------------");
+                        Battle(player, monsters[monsterLocations.First()]);
+                        monsterLocations.Remove(playerLocation);
                     }
 
                     if(playerLocation == weaponLocation)
                     {
+                        weaponLocation = -1;
                         Console.WriteLine("\n------------WEAPON PICKUP------------");
                         if (weapons[0] is Stick)
+                        {
                             Console.WriteLine("You have obtained a Stick!");
+                            player.HasStick = true;
+                        }
                         else if (weapons[0] is Sword)
+                        {
                             Console.WriteLine("You have obtained a Sword!");
+                            player.HasSword = true;
+                        }
                     }
                 }
+                else
+                {
+                    playerLocation--;
+                    rooms[playerLocation + 1] = "|____|";
+                    rooms[playerLocation] = "|P___|";
+                    foreach (string room in rooms)
+                        Console.Write($"{room} ");
+                }
             }
+        }
+
+        public static void Battle(Player player, Monster monster)
+        {
+            Console.WriteLine("\n------------BATTLE------------");
+            player.CalcDamage(player, monster);
         }
     }
 }
