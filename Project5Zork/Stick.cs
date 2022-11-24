@@ -10,7 +10,8 @@ namespace Project5Zork
     {
         public Stick(int attack, string name) : base(attack, name)
         {
-
+            Attack = attack;
+            Name = name;
         }
     }
 }

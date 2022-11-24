@@ -53,13 +53,14 @@ namespace Project5Zork
         {
             Random rand = new Random();
             List<Participant> characters = new List<Participant>();
+            List<Weapon> weapons = new List<Weapon>();
             characters.Add(new Player());
 
             int numOfRooms = rand.Next(5, 11);
             int weaponChance = rand.Next(1, 4);
             int playerLocation = 0;
             int weaponLocation = -1;
-            int monsterLocation = -1;
+            List<int> monsterLocations = new List<int>();
 
             string[] rooms = new string[numOfRooms];
             rooms[0] = "|P___|";
@@ -68,6 +69,7 @@ namespace Project5Zork
             {
                 weaponLocation = rand.Next(1, numOfRooms - 1);
                 rooms[weaponLocation] = "|__St|";
+                weapons.Add(new Stick(6, "Stick"));
             }
             else
             {
@@ -83,7 +85,7 @@ namespace Project5Zork
                 {
                     characters.Add(new Monster());
                     rooms[i] = ("|_M__|");
-                    monsterLocation = i;
+                    monsterLocations.Add(i);
                 }
                 else if(i != weaponLocation)
                 {
@@ -126,9 +128,18 @@ namespace Project5Zork
                     foreach(string room in rooms)
                         Console.Write($"{room} ");
 
-                    if(playerLocation == monsterLocation)
+                    if(monsterLocations.Contains(playerLocation))
                     {
                         Console.WriteLine("\n------------BATTLE------------");
+                    }
+
+                    if(playerLocation == weaponLocation)
+                    {
+                        Console.WriteLine("\n------------WEAPON PICKUP------------");
+                        if (weapons[0] is Stick)
+                            Console.WriteLine("You have obtained a Stick!");
+                        else if (weapons[0] is Sword)
+                            Console.WriteLine("You have obtained a Sword!");
                     }
                 }
             }
