@@ -110,25 +110,26 @@ namespace Project5Zork
                 {
                     Console.Write($"{room} ");
                 }
+                Console.WriteLine($"\nYour remaining health points: {player.Health}");
 
-                Console.Write("\nGo (left/right) ");
+                Console.Write("\nWhat would you like to do next? Your choices are 'go east' and 'go west'. ");
                 playerChoice = Console.ReadLine();
 
-                if (playerChoice != "left" && playerChoice != "right")
+                if (playerChoice != "go west" && playerChoice != "go east")
                 {
-                    Console.WriteLine("That was not a valid movement, please enter \"left\" or \"right\"");
+                    Console.WriteLine("\nI do not know what you mean.\n");
                 }
-                else if (playerChoice == "left" && playerLocation == 0)
+                else if (playerChoice == "go west" && playerLocation == 0)
                 {
-                    Console.WriteLine("There is nowhere to move left!");
+                    Console.WriteLine("\nSorry, but I can't go that direction.\n");
                     invalidMovement = true;
                 }
-                else if (playerChoice == "right" && playerLocation == rooms.Length - 1)
+                else if (playerChoice == "go east" && playerLocation == rooms.Length - 1)
                 {
-                    Console.WriteLine("You have escaped!");
+                    Console.WriteLine("\nYou have beaten the dungeon!\n");
                     break;
                 }
-                else if (playerChoice == "right")
+                else if (playerChoice == "go east")
                 {
                     playerLocation++;
                     rooms[playerLocation - 1] = "|____|";
@@ -136,6 +137,7 @@ namespace Project5Zork
 
                     if (monsterLocations.Contains(playerLocation))
                     {
+                        Console.WriteLine("There is a monster here!");
                         Battle(player, monsters[monsterLocations.First()]);
                         monsterLocations.Remove(playerLocation);
                     }
@@ -146,12 +148,12 @@ namespace Project5Zork
                         Console.WriteLine("\n------------WEAPON PICKUP------------");
                         if (weapon is Stick)
                         {
-                            Console.WriteLine("You have obtained a Stick!");
+                            Console.WriteLine("You have obtained a Stick!\n");
                             player.HasStick = true;
                         }
                         else if (weapon is Sword)
                         {
-                            Console.WriteLine("You have obtained a Sword!");
+                            Console.WriteLine("You have obtained a Sword!\n");
                             player.HasSword = true;
                         }
                     }
@@ -167,18 +169,35 @@ namespace Project5Zork
 
         public static void Battle(Player player, Monster monster)
         {
+            Random rand = new Random();
             Console.WriteLine("\n------------BATTLE------------");
             while(!player.Dead && !monster.Dead)
             {
-
-                monster.CalcDamage(player, monster);
-                Console.ReadLine();
-                if(monster.Dead)
+                if(rand.Next(10000) < 1000) //10% chance of missing
                 {
-                    break;
+                    Console.WriteLine("A miss!");
+                    Console.ReadLine();
                 }
-                player.CalcDamage(player, monster);
-                Console.ReadLine();
+                else
+                {
+                    monster.CalcDamage(player, monster);
+                    Console.ReadLine();
+                    if (monster.Dead)
+                    {
+                        break;
+                    }
+                }
+
+                if(rand.Next(10000) < 2000) //20% chance of missing
+                {
+                    Console.WriteLine("The monster missed the player.");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    player.CalcDamage(player, monster);
+                    Console.ReadLine();
+                }
             }
         }
     }
