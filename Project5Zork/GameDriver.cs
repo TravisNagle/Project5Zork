@@ -53,7 +53,7 @@ namespace Project5Zork
         {
             Random rand = new Random();
             int numOfRooms = rand.Next(5, 11);
-            List<Weapon> weapons = new List<Weapon>();
+            Weapon weapon = new Weapon(4, "Unarmed");
             Player player = new Player();
             Monster[] monsters = new Monster[numOfRooms];
 
@@ -69,12 +69,13 @@ namespace Project5Zork
             {
                 weaponLocation = rand.Next(1, numOfRooms - 1);
                 rooms[weaponLocation] = "|__St|";
-                weapons.Add(new Stick(6, "Stick"));
+                weapon = new Stick(6, "Stick");
             }
             else
             {
                 weaponLocation = rand.Next(1, numOfRooms);
                 rooms[weaponLocation] = "|__Sw|";
+                weapon = new Sword(8, "Sword");
             }
 
             for(int i = 1; i < rooms.Length; i++)
@@ -93,15 +94,15 @@ namespace Project5Zork
                 }
             }
 
-            foreach (string room in rooms)
-            {
-                Console.Write($"{room} ");
-            }
-
             string playerChoice = "";
             bool invalidMovement = false;
             while((playerChoice != "left" && playerChoice != "right") || invalidMovement || !player.Dead)
             {
+                foreach (string room in rooms)
+                {
+                    Console.Write($"{room} ");
+                }
+
                 Console.Write("\nGo (left/right) ");
                 playerChoice = Console.ReadLine();
 
@@ -124,8 +125,6 @@ namespace Project5Zork
                     playerLocation++;
                     rooms[playerLocation - 1] = "|____|";
                     rooms[playerLocation] = "|P___|";
-                    foreach(string room in rooms)
-                        Console.Write($"{room} ");
 
                     if(monsterLocations.Contains(playerLocation))
                     {
@@ -137,12 +136,12 @@ namespace Project5Zork
                     {
                         weaponLocation = -1;
                         Console.WriteLine("\n------------WEAPON PICKUP------------");
-                        if (weapons[0] is Stick)
+                        if (weapon is Stick)
                         {
                             Console.WriteLine("You have obtained a Stick!");
                             player.HasStick = true;
                         }
-                        else if (weapons[0] is Sword)
+                        else if (weapon is Sword)
                         {
                             Console.WriteLine("You have obtained a Sword!");
                             player.HasSword = true;
@@ -154,8 +153,6 @@ namespace Project5Zork
                     playerLocation--;
                     rooms[playerLocation + 1] = "|____|";
                     rooms[playerLocation] = "|P___|";
-                    foreach (string room in rooms)
-                        Console.Write($"{room} ");
                 }
             }
         }
@@ -163,7 +160,19 @@ namespace Project5Zork
         public static void Battle(Player player, Monster monster)
         {
             Console.WriteLine("\n------------BATTLE------------");
-            player.CalcDamage(player, monster);
+            while(!player.Dead && !monster.Dead)
+            {
+
+                monster.CalcDamage(player, monster);
+                Console.ReadLine();
+                if(monster.Dead)
+                {
+                    Console.WriteLine("VICTORY");
+                    break;
+                }
+                player.CalcDamage(player, monster);
+                Console.ReadLine();
+            }
         }
     }
 }
