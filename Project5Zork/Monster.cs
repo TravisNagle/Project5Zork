@@ -8,7 +8,6 @@ namespace Project5Zork
 {
     public class Monster : Participant
     {
-        public bool Spawn { get; set; }
 
         public Monster() : base()
         {
@@ -16,23 +15,6 @@ namespace Project5Zork
             Health = 20;
             Name = "Monster";
             Weapon = new Weapon(4, "Unarmed");
-        }
-
-        public bool MonsterSpawn()
-        {
-            Random r = new Random();
-            int spawnRate = r.Next(0, 2);
-
-            if (spawnRate == 1)
-            {
-                Spawn = true;
-                return true;
-            }
-            else
-            {
-                Spawn = false;
-                return false;
-            }
         }
 
         public override int CalcDamage(Player player, Monster monster)
