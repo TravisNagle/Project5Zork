@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Project5Zork
 {
@@ -93,8 +94,9 @@ namespace Project5Zork
                     rooms[i] = "|____|";
                 }
             }
+            DungeonLayout(rooms, player, weapon, monsters, playerLocation, weaponLocation, monsterLocations);
 
-            string playerChoice = "";
+            /*string playerChoice = "";
             bool invalidMovement = false;
             while((playerChoice != "left" && playerChoice != "right") || invalidMovement || !player.Dead)
             {
@@ -133,6 +135,72 @@ namespace Project5Zork
                     }
 
                     if(playerLocation == weaponLocation)
+                    {
+                        weaponLocation = -1;
+                        Console.WriteLine("\n------------WEAPON PICKUP------------");
+                        if (weapon is Stick)
+                        {
+                            Console.WriteLine("You have obtained a Stick!");
+                            player.HasStick = true;
+                        }
+                        else if (weapon is Sword)
+                        {
+                            Console.WriteLine("You have obtained a Sword!");
+                            player.HasSword = true;
+                        }
+                    }
+                }
+                else
+                {
+                    playerLocation--;
+                    rooms[playerLocation + 1] = "|____|";
+                    rooms[playerLocation] = "|P___|";
+                }
+            }*/
+        }
+
+        public static void DungeonLayout(string[] rooms, Player player, Weapon weapon, Monster[] monsters, int playerLocation,
+                                         int weaponLocation, List<int> monsterLocations)
+        {
+            string playerChoice = "";
+            bool invalidMovement = false;
+            while ((playerChoice != "left" && playerChoice != "right") || invalidMovement || !player.Dead)
+            {
+                foreach (string room in rooms)
+                {
+                    Console.Write($"{room} ");
+                }
+
+                Console.Write("\nGo (left/right) ");
+                playerChoice = Console.ReadLine();
+
+                if (playerChoice != "left" && playerChoice != "right")
+                {
+                    Console.WriteLine("That was not a valid movement, please enter \"left\" or \"right\"");
+                }
+                else if (playerChoice == "left" && playerLocation == 0)
+                {
+                    Console.WriteLine("There is nowhere to move left!");
+                    invalidMovement = true;
+                }
+                else if (playerChoice == "right" && playerLocation == rooms.Length - 1)
+                {
+                    Console.WriteLine("You have escaped!");
+                    break;
+                }
+                else if (playerChoice == "right")
+                {
+                    playerLocation++;
+                    rooms[playerLocation - 1] = "|____|";
+                    rooms[playerLocation] = "|P___|";
+
+                    if (monsterLocations.Contains(playerLocation))
+                    {
+                        Battle(player, monsters[monsterLocations.First()]);
+                        monsterLocations.Remove(playerLocation);
+                    }
+
+                    if (playerLocation == weaponLocation)
                     {
                         weaponLocation = -1;
                         Console.WriteLine("\n------------WEAPON PICKUP------------");
