@@ -17,6 +17,11 @@ namespace Project5Zork
             Name = name;
         }
 
+        public int GetAttack()
+        {
+            return Attack;
+        }
+
         public override string ToString()
         {
             string info = $"\nName: {Name}";
