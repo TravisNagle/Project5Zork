@@ -7,13 +7,6 @@ namespace Project5Zork
     {
         public static void Main()
         {
-            Player player = new Player();
-            Monster monster = new Monster();
-
-            Console.WriteLine(player);
-            Console.WriteLine();
-            Console.WriteLine(monster);
-
             Menu();
         }
 
@@ -106,6 +99,9 @@ namespace Project5Zork
             bool invalidMovement = false;
             while ((playerChoice != "left" && playerChoice != "right") || invalidMovement || !player.Dead)
             {
+                if (player.Dead)
+                    break;
+
                 foreach (string room in rooms)
                 {
                     Console.Write($"{room} ");

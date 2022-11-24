@@ -20,7 +20,7 @@ namespace Project5Zork
 
         public override int CalcDamage(Player player, Monster monster)
         {
-            Health = Health - 4;
+            Health = Health - 100;
             Console.WriteLine($"The Player has taken damage!\nHealth: {Health}");
 
             if (Health <= 0)

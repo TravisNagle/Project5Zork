@@ -17,6 +17,11 @@ namespace Project5Zork
             Weapon = new Weapon(4, "Unarmed");
         }
 
+        public void SetHealth(int health)
+        {
+            Health = health;
+        }
+
         public override int CalcDamage(Player player, Monster monster)
         {
             if(player.HasStick)
