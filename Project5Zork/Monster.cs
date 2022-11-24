@@ -12,6 +12,7 @@ namespace Project5Zork
 
         public Monster() : base()
         {
+            Dead = false;
             Health = 20;
             Name = "Monster";
             Weapon = new Weapon(4, "Unarmed");
@@ -20,7 +21,7 @@ namespace Project5Zork
         public bool MonsterSpawn()
         {
             Random r = new Random();
-            int spawnRate = r.Next(1, 2);
+            int spawnRate = r.Next(0, 2);
 
             if (spawnRate == 1)
             {
@@ -53,6 +54,7 @@ namespace Project5Zork
             if (Health <= 0)
             {
                 Console.WriteLine($"The Monster has died.");
+                Console.WriteLine("VICTORY");
                 Dead = true;
             }
             return Health;

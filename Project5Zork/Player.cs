@@ -12,6 +12,7 @@ namespace Project5Zork
         public bool HasSword { get; set; } = false;
         public Player() : base()
         {
+            Dead = false;
             Health = 100;
             Name = "Player";
             Weapon = new Weapon(5, "Unarmed");
