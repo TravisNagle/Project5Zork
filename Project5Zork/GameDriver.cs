@@ -150,11 +150,13 @@ namespace Project5Zork
                         {
                             Console.WriteLine("You have obtained a Stick!\n");
                             player.HasStick = true;
+                            player.GetWeapon();
                         }
                         else if (weapon is Sword)
                         {
                             Console.WriteLine("You have obtained a Sword!\n");
                             player.HasSword = true;
+                            player.GetWeapon();
                         }
                     }
                 }

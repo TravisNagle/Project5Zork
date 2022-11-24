@@ -31,6 +31,14 @@ namespace Project5Zork
             return Health;
         }
 
+        public void GetWeapon()
+        {
+            if (HasStick)
+                Weapon = new Weapon(6, "Stick");
+            else if (HasSword)
+                Weapon = new Weapon(8, "Sword");
+        }
+
         public override string ToString()
         {
             return base.ToString();
