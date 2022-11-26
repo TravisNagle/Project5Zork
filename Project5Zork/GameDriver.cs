@@ -1,15 +1,38 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////
+//
+// Project: Project5Zork
+// File Name: GameDriver.cs
+// Description: Driver for the Zork game that takes care of menu functions, dungeon layout, and battle functions
+// Course: CSCI 1260-001 – Introduction to Computer Science II
+// Author: Travis Nagle, naglet@etsu.edu, Department of Computing, East Tennessee State University
+// Created: 11/26/22
+// Copyright: Travis Nagle, 2022
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////
+
+using System;
 using System.Numerics;
 
 namespace Project5Zork
 {
+    /// <summary>
+    /// Driver class that takes care of user input and menu functions
+    /// </summary>
     public class GameDriver
     {
+        /// <summary>
+        /// Main method that calls the menu
+        /// </summary>
         public static void Main()
         {
             Menu();
         }
 
+        /// <summary>
+        /// Menu for the Zork game that allows the player to enter the game or exit the game
+        /// </summary>
         public static void Menu()
         {
             int userChoice = -1;
@@ -43,6 +66,11 @@ namespace Project5Zork
             }
         }
 
+        /// <summary>
+        /// PlayGame method that creates the unique dungeon layout
+        /// for each Zork game and creates the player and monsters
+        /// for the game.
+        /// </summary>
         public static void PlayGame()
         {
             Random rand = new Random();
@@ -92,6 +120,18 @@ namespace Project5Zork
             Menu();
         }
 
+        /// <summary>
+        /// PlayerMovement method that takes care of all player movements 
+        /// and determining if a player will battle, pick up a weapon, enter 
+        /// an empty room, and exit the dungeon.
+        /// </summary>
+        /// <param name="rooms">Every room in the dungeon</param>
+        /// <param name="player">The player</param>
+        /// <param name="weapon">The weapon that the player may pick up</param>
+        /// <param name="monsters">Each monster in the dungeon</param>
+        /// <param name="playerLocation">Variable that keeps track of player's location</param>
+        /// <param name="weaponLocation">Variable that keeps track of the weapon's location</param>
+        /// <param name="monsterLocations">Variable that keeps track of each monster location</param>
         public static void PlayerMovement(string[] rooms, Player player, Weapon weapon, Monster[] monsters, int playerLocation,
                                          int weaponLocation, List<int> monsterLocations)
         {
@@ -131,14 +171,14 @@ namespace Project5Zork
                     rooms[playerLocation - 1] = "|____|";
                     rooms[playerLocation] = "|P___|";
 
-                    if (monsterLocations.Contains(playerLocation))
+                    if (monsterLocations.Contains(playerLocation)) //Checks if playerlocation = monsterlocation
                     {
                         Console.WriteLine("There is a monster here!");
                         Battle(player, monsters[monsterLocations.First()]);
                         monsterLocations.Remove(playerLocation);
                     }
 
-                    if (playerLocation == weaponLocation)
+                    if (playerLocation == weaponLocation) 
                     {
                         weaponLocation = -1;
                         Console.WriteLine("\n------------WEAPON PICKUP------------");
@@ -165,6 +205,12 @@ namespace Project5Zork
             }
         }
 
+        /// <summary>
+        /// Battle method that takes care of hit chances and calling each
+        /// participants CalcDamage method
+        /// </summary>
+        /// <param name="player">The player</param>
+        /// <param name="monster">The monster the player is currently fighting</param>
         public static void Battle(Player player, Monster monster)
         {
             Random rand = new Random();
