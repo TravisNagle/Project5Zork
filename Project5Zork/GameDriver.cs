@@ -97,7 +97,7 @@ namespace Project5Zork
             {
                 weaponLocation = rand.Next(1, numOfRooms);
                 rooms[weaponLocation] = "|__Sw|";
-                weapon = new Sword(8, "Sword");
+                weapon = new Sword();
             }
 
             for(int i = 1; i < rooms.Length; i++)
