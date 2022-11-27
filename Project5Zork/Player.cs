@@ -51,7 +51,7 @@ namespace Project5Zork
         /// <returns>The health of the player at the end of each attack</returns>
         public override int CalcDamage(Player player, Monster monster)
         {
-            Health = Health - 4;
+            Health = Health - monster.GetWeapon().Attack;
             Console.WriteLine($"The Player has taken damage!\nHealth: {Health}");
 
             if (Health <= 0)
@@ -66,7 +66,7 @@ namespace Project5Zork
         /// GetWeapon method that sets the players weapon to whichever
         /// weapon the player has picked up.
         /// </summary>
-        public void GetWeapon()
+        public void PlayerWeapon()
         {
             if (HasStick)
                 Weapon = new Weapon(6, "Stick");

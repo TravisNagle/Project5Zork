@@ -146,7 +146,7 @@ namespace Project5Zork
                 {
                     Console.Write($"{room} ");
                 }
-                Console.WriteLine($"\nYour remaining health points: {player.Health}");
+                Console.WriteLine($"\nYour remaining health points: {player.GetHealth()}");
 
                 Console.Write("\nWhat would you like to do next? Your choices are 'go east' and 'go west'. ");
                 playerChoice = Console.ReadLine();
@@ -186,13 +186,13 @@ namespace Project5Zork
                         {
                             Console.WriteLine("You have obtained a Stick!\n");
                             player.HasStick = true;
-                            player.GetWeapon();
+                            player.PlayerWeapon();
                         }
                         else if (weapon is Sword)
                         {
                             Console.WriteLine("You have obtained a Sword!\n");
                             player.HasSword = true;
-                            player.GetWeapon();
+                            player.PlayerWeapon();
                         }
                     }
                 }

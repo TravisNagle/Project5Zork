@@ -51,18 +51,7 @@ namespace Project5Zork
         /// <returns></returns>
         public override int CalcDamage(Player player, Monster monster)
         {
-            if(player.HasStick)
-            {
-                Health = Health - 6;
-            }
-            else if(player.HasSword)
-            {
-                Health = Health - 8;
-            }
-            else
-            {
-                Health = Health - 5;
-            }
+            Health = Health - player.GetWeapon().Attack;
             Console.WriteLine($"The Monster has taken damage!\nHealth: {Health}");
 
             if (Health <= 0)
