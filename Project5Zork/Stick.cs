@@ -58,5 +58,14 @@ namespace Project5Zork
             Attack = existingStick.Attack;
             Name = existingStick.Name;
         }
+
+        /// <summary>
+        /// ToString method for the stick class
+        /// </summary>
+        /// <returns>Stick info as a string</returns>
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

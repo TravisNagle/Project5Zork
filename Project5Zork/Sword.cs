@@ -56,5 +56,14 @@ namespace Project5Zork
             Attack = existingSword.Attack;
             Name = existingSword.Name;
         }
+
+        /// <summary>
+        /// ToString method for the sword class
+        /// </summary>
+        /// <returns>Sword info as a string</returns>
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
