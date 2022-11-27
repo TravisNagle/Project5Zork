@@ -37,11 +37,6 @@ namespace Project5Zork
             Weapon = new Weapon(4, "Unarmed");
         }
 
-        public void SetHealth(int health)
-        {
-            Health = health;
-        }
-
         /// <summary>
         /// CalcDamage method that keeps track of the players weapon
         /// to take the correct number of health away from the monster
