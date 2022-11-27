@@ -1,4 +1,18 @@
-﻿namespace Project5Zork
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////
+//
+// Project: Project5Zork
+// File Name: Participant.cs
+// Description: Creates the participant class that keeps track of all participant information
+// Course: CSCI 1260-001 – Introduction to Computer Science II
+// Author: Travis Nagle, naglet@etsu.edu, Department of Computing, East Tennessee State University
+// Created: 11/26/22
+// Copyright: Travis Nagle, 2022
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////
+
+namespace Project5Zork
 {
     /// <summary>
     /// Implementation of the abstract participation class

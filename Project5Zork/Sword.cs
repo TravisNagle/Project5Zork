@@ -13,10 +13,5 @@ namespace Project5Zork
             Attack = attack;
             Name = name;
         }
-
-        public int GetAttack()
-        {
-            return Attack;
-        }
     }
 }
