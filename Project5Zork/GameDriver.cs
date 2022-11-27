@@ -76,10 +76,10 @@ namespace Project5Zork
             Random rand = new Random();
             int numOfRooms = rand.Next(5, 11);
             Weapon weapon = new Weapon(4, "Unarmed");
+
             Player player = new Player();
             Monster[] monsters = new Monster[numOfRooms];
 
-            int weaponChance = rand.Next(1, 4);
             int playerLocation = 0;
             int weaponLocation = -1;
             List<int> monsterLocations = new List<int>();
@@ -87,13 +87,13 @@ namespace Project5Zork
             string[] rooms = new string[numOfRooms];
             rooms[0] = "|P___|";
 
-            if(weaponChance % 2 != 0)
+            if(rand.Next(10000) < 5000) //50% chance of stick
             {
                 weaponLocation = rand.Next(1, numOfRooms - 1);
                 rooms[weaponLocation] = "|__St|";
                 weapon = new Stick();
             }
-            else
+            else //50% chance of sword
             {
                 weaponLocation = rand.Next(1, numOfRooms);
                 rooms[weaponLocation] = "|__Sw|";
@@ -137,35 +137,35 @@ namespace Project5Zork
         {
             string playerChoice = "";
             bool invalidMovement = false;
-            while ((playerChoice != "left" && playerChoice != "right") || invalidMovement || !player.Dead)
+            while ((playerChoice != "go west" && playerChoice != "go east") || invalidMovement || !player.Dead) //Checks if the player movement is valid and if the player is dead
             {
                 if (player.Dead)
                     break;
 
-                foreach (string room in rooms)
+                foreach (string room in rooms) //Displays each room
                 {
                     Console.Write($"{room} ");
                 }
-                Console.WriteLine($"\nYour remaining health points: {player.GetHealth()}");
+                Console.WriteLine($"\nYour remaining health points: {player.GetHealth()}"); //Displays the players remaining health points
 
-                Console.Write("\nWhat would you like to do next? Your choices are 'go east' and 'go west'. ");
+                Console.Write("\nWhat would you like to do next? Your choices are 'go east' and 'go west'. "); //Asks for the direction the player would like to move
                 playerChoice = Console.ReadLine();
 
-                if (playerChoice != "go west" && playerChoice != "go east")
+                if (playerChoice != "go west" && playerChoice != "go east") //If player enters choice other than "go east" or "go west", ask again
                 {
                     Console.WriteLine("\nI do not know what you mean.\n");
                 }
-                else if (playerChoice == "go west" && playerLocation == 0)
+                else if (playerChoice == "go west" && playerLocation == 0) //If player is unable to "go west" from the start, for example, the player must choose again
                 {
                     Console.WriteLine("\nSorry, but I can't go that direction.\n");
                     invalidMovement = true;
                 }
-                else if (playerChoice == "go east" && playerLocation == rooms.Length - 1)
+                else if (playerChoice == "go east" && playerLocation == rooms.Length - 1) //Checks if player will go past the final room of fthe dungeon
                 {
                     Console.WriteLine("\nYou have beaten the dungeon!\n");
                     break;
                 }
-                else if (playerChoice == "go east")
+                else if (playerChoice == "go east") //Moves player one spot east by swapping room values
                 {
                     playerLocation++;
                     rooms[playerLocation - 1] = "|____|";
@@ -196,7 +196,7 @@ namespace Project5Zork
                         }
                     }
                 }
-                else
+                else //Moves player one spot west by swapping room values
                 {
                     playerLocation--;
                     rooms[playerLocation + 1] = "|____|";
@@ -224,7 +224,7 @@ namespace Project5Zork
                 }
                 else
                 {
-                    monster.CalcDamage(player, monster);
+                    monster.CalcDamage(player, monster); //Monster takes damage
                     Console.ReadLine();
                     if (monster.Dead)
                     {
@@ -239,7 +239,7 @@ namespace Project5Zork
                 }
                 else
                 {
-                    player.CalcDamage(player, monster);
+                    player.CalcDamage(player, monster); //Player takes damage
                     Console.ReadLine();
                 }
             }
