@@ -76,6 +76,8 @@ namespace Project5Zork
             Random rand = new Random();
             int numOfRooms = rand.Next(5, 11);
             Weapon weapon = new Weapon(4, "Unarmed");
+            bool stickSpawn = false;
+            bool swordSpawn = false;
 
             Player player = new Player();
             Monster[] monsters = new Monster[numOfRooms];
@@ -92,23 +94,33 @@ namespace Project5Zork
                 weaponLocation = rand.Next(1, numOfRooms - 1);
                 rooms[weaponLocation] = "|__St|";
                 weapon = new Stick();
+                stickSpawn = true;
             }
             else //50% chance of sword
             {
                 weaponLocation = rand.Next(1, numOfRooms);
                 rooms[weaponLocation] = "|__Sw|";
                 weapon = new Sword();
+                swordSpawn = true;
             }
 
             for(int i = 1; i < rooms.Length; i++)
             {
                 int monsterSpawn = rand.Next(0, 2);
 
-                if(monsterSpawn == 1 && i != weaponLocation)
+                if(monsterSpawn == 1)
                 {
                     monsters[i] = new Monster();
                     rooms[i] = ("|_M__|");
                     monsterLocations.Add(i);
+
+                    if (monsterLocations.Contains(weaponLocation))
+                    {
+                        if (stickSpawn)
+                            rooms[weaponLocation] = ("|_MSt|");
+                        else if (swordSpawn)
+                            rooms[weaponLocation] = ("|_MSw|");
+                    }
                 }
                 else if(i != weaponLocation)
                 {
@@ -171,14 +183,7 @@ namespace Project5Zork
                     rooms[playerLocation - 1] = "|____|";
                     rooms[playerLocation] = "|P___|";
 
-                    if (monsterLocations.Contains(playerLocation)) //Checks if playerlocation = monsterlocation
-                    {
-                        Console.WriteLine("There is a monster here!");
-                        Battle(player, monsters[monsterLocations.First()]);
-                        monsterLocations.Remove(playerLocation);
-                    }
-
-                    if (playerLocation == weaponLocation) 
+                    if (playerLocation == weaponLocation)
                     {
                         weaponLocation = -1;
                         Console.WriteLine("\n------------WEAPON PICKUP------------");
@@ -194,6 +199,13 @@ namespace Project5Zork
                             player.HasSword = true;
                             player.PlayerWeapon();
                         }
+                    }
+
+                    if (monsterLocations.Contains(playerLocation)) //Checks if playerlocation = monsterlocation
+                    {
+                        Console.WriteLine("There is a monster here!");
+                        Battle(player, monsters[monsterLocations.First()]);
+                        monsterLocations.Remove(playerLocation);
                     }
                 }
                 else //Moves player one spot west by swapping room values
