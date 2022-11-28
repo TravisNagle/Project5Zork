@@ -225,9 +225,12 @@ namespace Project5Zork
                 else
                 {
                     monster.CalcDamage(player, monster); //Monster takes damage
+                    Console.WriteLine($"The Monster has taken damage!\nHealth: {monster.GetHealth()}");
                     Console.ReadLine();
                     if (monster.Dead)
                     {
+                        Console.WriteLine($"The Monster has died.\n");
+                        Console.WriteLine("VICTORY\n");
                         break;
                     }
                 }
@@ -240,7 +243,13 @@ namespace Project5Zork
                 else
                 {
                     player.CalcDamage(player, monster); //Player takes damage
+                    Console.WriteLine($"The Player has taken damage!\nHealth: {player.GetHealth()}");
                     Console.ReadLine();
+                    if(player.Dead)
+                    {
+                        Console.WriteLine($"The Player has died.\nGame Over\n");
+                        break;
+                    }
                 }
             }
         }

@@ -52,11 +52,9 @@ namespace Project5Zork
         public override int CalcDamage(Player player, Monster monster)
         {
             Health = Health - monster.GetWeapon().Attack;
-            Console.WriteLine($"The Player has taken damage!\nHealth: {Health}");
 
             if (Health <= 0)
             {
-                Console.WriteLine($"The Player has died.\nGame Over");
                 Dead = true;
             }
             return Health;
