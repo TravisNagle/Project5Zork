@@ -38,7 +38,7 @@ namespace Project5Zork
             int userChoice = -1;
             bool validChoice = false;
 
-            while(!validChoice)
+            while(!validChoice || userChoice < 1 || userChoice > 2)
             {
                 try
                 {
