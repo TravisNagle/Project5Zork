@@ -106,7 +106,7 @@ namespace Project5Zork
 
             for(int i = 1; i < rooms.Length; i++)
             {
-                int monsterSpawn = rand.Next(0, 2);
+                int monsterSpawn = rand.Next(0, 3);
 
                 if(monsterSpawn == 1)
                 {
@@ -120,6 +120,20 @@ namespace Project5Zork
                             rooms[weaponLocation] = ("|_MSt|");
                         else if (swordSpawn)
                             rooms[weaponLocation] = ("|_MSw|");
+                    }
+                }
+                else if(monsterSpawn == 2)
+                {
+                    monsters[i] = new Goblin();
+                    rooms[i] = ("|_G__|");
+                    monsterLocations.Add(i);
+
+                    if (monsterLocations.Contains(weaponLocation))
+                    {
+                        if (stickSpawn)
+                            rooms[weaponLocation] = ("|_GSt|");
+                        else if (swordSpawn)
+                            rooms[weaponLocation] = ("|_GSw|");
                     }
                 }
                 else if(i != weaponLocation)
@@ -236,9 +250,19 @@ namespace Project5Zork
                 }
                 else
                 {
-                    monster.CalcDamage(player, monster); //Monster takes damage
-                    Console.WriteLine($"The Monster has taken damage!\nHealth: {monster.GetHealth()}");
-                    Console.ReadLine();
+                    if(monster is Goblin)
+                    {
+                        monster.CalcDamage(player, monster); //Monster takes damage
+                        Console.WriteLine($"The Goblin has taken damage!\nHealth: {monster.GetHealth()}");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        monster.CalcDamage(player, monster); //Monster takes damage
+                        Console.WriteLine($"The Monster has taken damage!\nHealth: {monster.GetHealth()}");
+                        Console.ReadLine();
+                    }
+
                     if (monster.Dead)
                     {
                         Console.WriteLine($"The Monster has died.\n");
