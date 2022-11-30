@@ -1,4 +1,18 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////
+//
+// Project: Project5Zork
+// File Name: Dragon.cs
+// Description: Creates a Dragon object that can be one of three types with different properties
+// Course: CSCI 1260-001 – Introduction to Computer Science II
+// Author: Travis Nagle, naglet@etsu.edu, Department of Computing, East Tennessee State University
+// Created: 11/30/22
+// Copyright: Travis Nagle, 2022
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +20,15 @@ using System.Threading.Tasks;
 
 namespace Project5Zork
 {
+    /// <summary>
+    /// Implementation of the dragon class that inherits from monster
+    /// </summary>
     public class Dragon : Monster
     {
+        /// <summary>
+        /// Creates a default dragon object that can be of one of
+        /// three types
+        /// </summary>
         public Dragon() : base()
         {
             Random rand = new Random();
@@ -36,6 +57,10 @@ namespace Project5Zork
             }
         }
 
+        /// <summary>
+        /// Converts dragon info to a string
+        /// </summary>
+        /// <returns>Dragon as a string</returns>
         public override string ToString()
         {
             return base.ToString();

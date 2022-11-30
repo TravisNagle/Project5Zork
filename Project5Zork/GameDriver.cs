@@ -118,9 +118,9 @@ namespace Project5Zork
                         if (monsterLocations.Contains(weaponLocation))
                         {
                             if (stickSpawn)
-                                rooms[weaponLocation] = ("|_MSt|");
+                                rooms[weaponLocation] = ("|_?St|");
                             else if (swordSpawn)
-                                rooms[weaponLocation] = ("|_MSw|");
+                                rooms[weaponLocation] = ("|_?Sw|");
                         }
                         break;
 
@@ -132,9 +132,9 @@ namespace Project5Zork
                         if (monsterLocations.Contains(weaponLocation))
                         {
                             if (stickSpawn)
-                                rooms[weaponLocation] = ("|_GSt|");
+                                rooms[weaponLocation] = ("|_?St|");
                             else if (swordSpawn)
-                                rooms[weaponLocation] = ("|_GSw|");
+                                rooms[weaponLocation] = ("|_?Sw|");
                         }
                         break;
 
@@ -146,9 +146,9 @@ namespace Project5Zork
                         if (monsterLocations.Contains(weaponLocation))
                         {
                             if (stickSpawn)
-                                rooms[weaponLocation] = ("|_OSt|");
+                                rooms[weaponLocation] = ("|_?St|");
                             else if (swordSpawn)
-                                rooms[weaponLocation] = ("|_OSw|");
+                                rooms[weaponLocation] = ("|_?Sw|");
                         }
                         break;
 
@@ -276,7 +276,6 @@ namespace Project5Zork
                 }
                 else
                 {
-
                     monster.CalcDamage(player, monster); //Monster takes damage
                     Console.WriteLine($"The {monster.GetName()} has taken damage!\nHealth: {monster.GetHealth()}");
                     Console.ReadLine();
