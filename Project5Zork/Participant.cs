@@ -78,6 +78,11 @@ namespace Project5Zork
             return Weapon;
         }
 
+        public string GetName()
+        {
+            return Name;
+        }
+
         /// <summary>
         /// Boolean that checks if a participant is dead
         /// </summary>

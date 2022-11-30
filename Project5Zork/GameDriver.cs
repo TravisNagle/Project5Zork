@@ -91,14 +91,14 @@ namespace Project5Zork
 
             if(rand.Next(10000) < 5000) //50% chance of stick
             {
-                weaponLocation = rand.Next(1, numOfRooms - 1);
+                weaponLocation = rand.Next(1, numOfRooms - 2);
                 rooms[weaponLocation] = "|__St|";
                 weapon = new Stick();
                 stickSpawn = true;
             }
             else //50% chance of sword
             {
-                weaponLocation = rand.Next(1, numOfRooms);
+                weaponLocation = rand.Next(1, numOfRooms - 2);
                 rooms[weaponLocation] = "|__Sw|";
                 weapon = new Sword();
                 swordSpawn = true;
@@ -106,39 +106,72 @@ namespace Project5Zork
 
             for(int i = 1; i < rooms.Length; i++)
             {
-                int monsterSpawn = rand.Next(0, 3);
+                int monsterSpawn = rand.Next(0, 6);
 
-                if(monsterSpawn == 1)
+                switch(monsterSpawn)
                 {
-                    monsters[i] = new Monster();
-                    rooms[i] = ("|_M__|");
-                    monsterLocations.Add(i);
+                    case 1:
+                        monsters[i] = new Monster();
+                        rooms[i] = ("|_M__|");
+                        monsterLocations.Add(i);
 
-                    if (monsterLocations.Contains(weaponLocation))
-                    {
-                        if (stickSpawn)
-                            rooms[weaponLocation] = ("|_MSt|");
-                        else if (swordSpawn)
-                            rooms[weaponLocation] = ("|_MSw|");
-                    }
-                }
-                else if(monsterSpawn == 2)
-                {
-                    monsters[i] = new Goblin();
-                    rooms[i] = ("|_G__|");
-                    monsterLocations.Add(i);
+                        if (monsterLocations.Contains(weaponLocation))
+                        {
+                            if (stickSpawn)
+                                rooms[weaponLocation] = ("|_MSt|");
+                            else if (swordSpawn)
+                                rooms[weaponLocation] = ("|_MSw|");
+                        }
+                        break;
 
-                    if (monsterLocations.Contains(weaponLocation))
-                    {
-                        if (stickSpawn)
-                            rooms[weaponLocation] = ("|_GSt|");
-                        else if (swordSpawn)
-                            rooms[weaponLocation] = ("|_GSw|");
-                    }
-                }
-                else if(i != weaponLocation)
-                {
-                    rooms[i] = "|____|";
+                    case 2:
+                        monsters[i] = new Goblin();
+                        rooms[i] = ("|_G__|");
+                        monsterLocations.Add(i);
+
+                        if (monsterLocations.Contains(weaponLocation))
+                        {
+                            if (stickSpawn)
+                                rooms[weaponLocation] = ("|_GSt|");
+                            else if (swordSpawn)
+                                rooms[weaponLocation] = ("|_GSw|");
+                        }
+                        break;
+
+                    case 3:
+                        monsters[i] = new Orc();
+                        rooms[i] = ("|_O__|");
+                        monsterLocations.Add(i);
+
+                        if (monsterLocations.Contains(weaponLocation))
+                        {
+                            if (stickSpawn)
+                                rooms[weaponLocation] = ("|_OSt|");
+                            else if (swordSpawn)
+                                rooms[weaponLocation] = ("|_OSw|");
+                        }
+                        break;
+
+                    case 4:
+                        monsters[numOfRooms - 1] = new Orc();
+                        rooms[numOfRooms - 1] = ("|_D__|");
+                        monsterLocations.Add(i);
+
+                        if (monsterLocations.Contains(weaponLocation))
+                        {
+                            if (stickSpawn)
+                                rooms[weaponLocation] = ("|_DSt|");
+                            else if (swordSpawn)
+                                rooms[weaponLocation] = ("|_DSw|");
+                        }
+                        break;
+
+                    default:
+                        if (i != weaponLocation)
+                        {
+                            rooms[i] = "|____|";
+                        }
+                        break;
                 }
             }
 
@@ -250,22 +283,14 @@ namespace Project5Zork
                 }
                 else
                 {
-                    if(monster is Goblin)
-                    {
-                        monster.CalcDamage(player, monster); //Monster takes damage
-                        Console.WriteLine($"The Goblin has taken damage!\nHealth: {monster.GetHealth()}");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        monster.CalcDamage(player, monster); //Monster takes damage
-                        Console.WriteLine($"The Monster has taken damage!\nHealth: {monster.GetHealth()}");
-                        Console.ReadLine();
-                    }
+
+                    monster.CalcDamage(player, monster); //Monster takes damage
+                    Console.WriteLine($"The {monster.GetName()} has taken damage!\nHealth: {monster.GetHealth()}");
+                    Console.ReadLine();
 
                     if (monster.Dead)
                     {
-                        Console.WriteLine($"The Monster has died.\n");
+                        Console.WriteLine($"The {monster.GetName()} has died.\n");
                         Console.WriteLine("VICTORY\n");
                         break;
                     }
@@ -273,7 +298,7 @@ namespace Project5Zork
 
                 if(rand.Next(10000) < 2000) //20% chance of missing
                 {
-                    Console.WriteLine("The monster missed the player.");
+                    Console.WriteLine($"The {monster.GetName()} missed the player.");
                     Console.ReadLine();
                 }
                 else
