@@ -106,7 +106,7 @@ namespace Project5Zork
 
             for(int i = 1; i < rooms.Length; i++)
             {
-                int monsterSpawn = rand.Next(0, 6);
+                int monsterSpawn = rand.Next(0, 5);
 
                 switch(monsterSpawn)
                 {
@@ -152,20 +152,6 @@ namespace Project5Zork
                         }
                         break;
 
-                    case 4:
-                        monsters[numOfRooms - 1] = new Orc();
-                        rooms[numOfRooms - 1] = ("|_D__|");
-                        monsterLocations.Add(i);
-
-                        if (monsterLocations.Contains(weaponLocation))
-                        {
-                            if (stickSpawn)
-                                rooms[weaponLocation] = ("|_DSt|");
-                            else if (swordSpawn)
-                                rooms[weaponLocation] = ("|_DSw|");
-                        }
-                        break;
-
                     default:
                         if (i != weaponLocation)
                         {
@@ -173,6 +159,13 @@ namespace Project5Zork
                         }
                         break;
                 }
+            }
+
+            if(!monsterLocations.Contains(numOfRooms - 1))
+            {
+                monsters[numOfRooms - 1] = new Dragon();
+                rooms[numOfRooms - 1] = ("|_D__|");
+                monsterLocations.Add(numOfRooms - 1);
             }
 
             PlayerMovement(rooms, player, weapon, monsters, playerLocation, weaponLocation, monsterLocations);
